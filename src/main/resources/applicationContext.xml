@@ -30,7 +30,10 @@
 
     <bean id = "musicPlayer"
           class = "org.example.SpringDemo.MusicPlayer"
-          scope="prototype">
+
+          destroy-method="destroyMethod"
+          init-method="initMethod">
+
         <property name="music" ref="musicList"/>
         <property name="name" value="${mucicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>

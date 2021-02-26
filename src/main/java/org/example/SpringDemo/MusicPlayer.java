@@ -40,4 +40,12 @@ public class MusicPlayer {
     public void play() {
         music.forEach((m) -> System.out.println(m.getName()));
     }
+
+    public void initMethod() {
+        System.out.println("initialising");
+    }
+
+    public void destroyMethod() {
+        System.out.println("Destroying");
+    }
 }
