@@ -7,5 +7,9 @@ public class ClassicalMusic implements Music{
         return "Bah";
     }
 
+    private ClassicalMusic(){}
 
+    public static ClassicalMusic create(){
+        return new ClassicalMusic();
+    }
 }

@@ -11,7 +11,9 @@
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
     <bean id="classicalMusic"
-          class="org.example.SpringDemo.ClassicalMusic">
+          class="org.example.SpringDemo.ClassicalMusic"
+          factory-method="create"
+    >
     </bean>
     <bean id="rap"
           class="org.example.SpringDemo.Rap">
@@ -28,16 +30,16 @@
 
 
 
-    <bean id = "musicPlayer"
-          class = "org.example.SpringDemo.MusicPlayer"
+<!--    <bean id = "musicPlayer"-->
+<!--          class = "org.example.SpringDemo.MusicPlayer"-->
 
-          destroy-method="destroyMethod"
-          init-method="initMethod">
+<!--          destroy-method="destroyMethod"-->
+<!--          init-method="initMethod">-->
 
-        <property name="music" ref="musicList"/>
-        <property name="name" value="${mucicPlayer.name}"/>
-        <property name="volume" value="${musicPlayer.volume}"/>
+<!--        <property name="music" ref="musicList"/>-->
+<!--        <property name="name" value="${mucicPlayer.name}"/>-->
+<!--        <property name="volume" value="${musicPlayer.volume}"/>-->
 
-    </bean>
+<!--    </bean>-->
 
 </beans>
