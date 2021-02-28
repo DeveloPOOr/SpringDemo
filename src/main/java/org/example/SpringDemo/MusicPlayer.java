@@ -1,25 +1,23 @@
 package org.example.SpringDemo;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MusicPlayer {
-    private List<Music> music;
+    private Music music;
     private String name;
     private int volume;
 
-    public MusicPlayer(List<Music> music) {
+    @Autowired
+    public MusicPlayer(Music music) {
         this.music = music;
     }
 
     public MusicPlayer(){}
 
-    public List<Music> getMusic() {
-        return music;
-    }
 
-    public void setMusic(List<Music> music) {
-        this.music = music;
-    }
 
     public String getName() {
         return name;
@@ -37,8 +35,8 @@ public class MusicPlayer {
         this.volume = volume;
     }
 
-    public void play() {
-        music.forEach((m) -> System.out.println(m.getName()));
+    public String play() {
+        return "Playing: " + music.getName();
     }
 
     public void initMethod() {
