@@ -10,6 +10,8 @@ public class Test {
         );
 
         MusicPlayer player = context.getBean("musicPlayer", MusicPlayer.class);
+        System.out.println(player.getVolume());
+        System.out.println(player.getName());
         player.play(Genres.RAP);
 
         context.close();
