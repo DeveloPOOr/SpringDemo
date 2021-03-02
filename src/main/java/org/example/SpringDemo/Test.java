@@ -9,8 +9,9 @@ public class Test {
                 "applicationContext.xml"
         );
 
-        Computer player = context.getBean("computer", Computer.class);
-        player.play();
+        MusicPlayer player = context.getBean("musicPlayer", MusicPlayer.class);
+        player.play(Genres.RAP);
+
         context.close();
     }
 }

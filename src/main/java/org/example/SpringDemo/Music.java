@@ -1,5 +1,7 @@
 package org.example.SpringDemo;
 
+import java.util.List;
+
 public interface Music {
-    String getName();
+    List<String> getName();
 }

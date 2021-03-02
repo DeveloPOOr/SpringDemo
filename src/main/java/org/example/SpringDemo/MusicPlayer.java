@@ -1,42 +1,38 @@
 package org.example.SpringDemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Random;
+
 @Component
 public class MusicPlayer {
-    private Music music;
+    private Music classicalMusic;
+    private Music rapMusic;
     private String name;
     private int volume;
 
     @Autowired
-    public MusicPlayer(Music music) {
-        this.music = music;
+    public MusicPlayer(@Qualifier("classicalMusic") Music classicalmusic, @Qualifier("rap") Music rapMusic) {
+        this.classicalMusic = classicalmusic;
+        this.rapMusic = rapMusic;
     }
 
     public MusicPlayer(){}
 
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    public String play() {
-        return "Playing: " + music.getName();
+    public void play(Genres genres) {
+        List<String> songs = null;
+        if(genres == Genres.CLASSICAL) {
+            songs = classicalMusic.getName();
+        }
+        if(genres == Genres.RAP) {
+            songs = rapMusic.getName();
+        }
+        int random = new Random().nextInt(songs.size());
+        System.out.println(songs.get(random));
     }
 
     public void initMethod() {
