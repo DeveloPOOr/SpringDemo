@@ -1,6 +1,7 @@
 package org.example.springdemo.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 public class FirstController {
 
     @GetMapping("/hello")
-    public String sayHello(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "surname", required = false) String surname) {
+    public String sayHello(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "surname", required = false) String surname, Model model) {
         System.out.println("Hello " + name + " " + surname);
+        model.addAttribute("message", "Hello " + name + " " + surname);
         return "/first/hello";
     }
 
