@@ -50,4 +50,23 @@ public class PeopleController {
         logger.info("New user was saved");
         return "redirect:/people";
     }
+
+    @GetMapping("{id}/edit")
+    public String editView(@PathVariable(name = "id") int id, Model model ) {
+        model.addAttribute("person", personDao.show(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("{id}/edit")
+    public String edit(@ModelAttribute("person") Person person) {
+        logger.info("Person id is" + person.getId());
+        personDao.update(person);
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("{id}/delete")
+    public String delete(@ModelAttribute("person") Person person) {
+        personDao.delete(person);
+        return "redirect:/people";
+    }
 }
