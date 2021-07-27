@@ -1,12 +1,18 @@
 package org.example.springdemo.controllers;
 
+
+
+import javax.validation.Valid;
+
 import org.example.springdemo.dao.PersonDao;
 import org.example.springdemo.model.Person;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
@@ -45,7 +51,12 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String saveUser(@ModelAttribute("person") Person person) {
+    public String saveUser(@ModelAttribute("person") @Valid Person person,
+                           BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors())
+            return "people/new";
+
         personDao.save(person);
         logger.info("New user was saved");
         return "redirect:/people";
@@ -58,7 +69,11 @@ public class PeopleController {
     }
 
     @PatchMapping("{id}/edit")
-    public String edit(@ModelAttribute("person") Person person) {
+    public String edit(@ModelAttribute("person") @Valid Person person,
+                       BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return "people/edit";
+
         logger.info("Person id is" + person.getId());
         personDao.update(person);
         return "redirect:/people";
@@ -69,4 +84,6 @@ public class PeopleController {
         personDao.delete(person);
         return "redirect:/people";
     }
+
+
 }
