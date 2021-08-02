@@ -55,7 +55,7 @@ public class PeopleController {
                            BindingResult bindingResult) {
 
         if(bindingResult.hasErrors())
-            return "people/new";
+            return "people/addPerson";
 
         personDao.save(person);
         logger.info("New user was saved");
