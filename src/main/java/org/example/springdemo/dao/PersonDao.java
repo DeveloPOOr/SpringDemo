@@ -57,8 +57,9 @@ public class PersonDao {
     public Person show(int id)  {
         Person person = new Person();
         try {
-            Statement all = con.createStatement();
-            ResultSet resultSet = all.executeQuery("SELECT * FROM person WHERE person.id = " + id);
+            PreparedStatement st = con.prepareStatement("SELECT * FROM person WHERE person.id = ?");
+            st.setInt(1, id);
+            ResultSet resultSet = st.executeQuery();
             while (resultSet.next()) {
                 person.setId( resultSet.getInt("id"));
                 person.setAge( resultSet.getInt("age"));
@@ -73,24 +74,26 @@ public class PersonDao {
 
     public void save(Person person)  {
         try{
-            Statement all = con.createStatement();
-            all.executeUpdate("INSERT INTO person VALUES (" + ++PERSON_COUNT + ", '"
-                    + person.getName() + "',"
-                    + person.getAge() + ",'"
-                    + person.getEmail() + "')");
+            PreparedStatement st = con.prepareStatement("INSERT INTO person VALUES (?, ?, ?, ?)");
+            st.setInt(1, person.getId());
+            st.setString(2, person.getName());
+            st.setInt(3, person.getAge());
+            st.setString(4, person.getEmail());
+
+            st.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void update(Person person) {
         try{
-            Statement all = con.createStatement();
-            all.executeUpdate("UPDATE person SET " +
-                    "name =  '" + person.getName() + "', " +
-                    "age =  " + person.getAge() + ", " +
-                    "email = '" + person.getEmail() + "'" + " WHERE person.id = " + person.getId() );
+            PreparedStatement st = con.prepareStatement("UPDATE person SET name = ?, age = ?, email = ? WHERE person.id = ? ");
+            st.setString(1, person.getName());
+            st.setInt(2, person.getAge());
+            st.setString(3, person.getEmail());
+            st.setInt(4, person.getId());
+            st.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,8 +102,9 @@ public class PersonDao {
 
     public void delete(Person person) {
         try{
-            Statement all = con.createStatement();
-            all.executeUpdate("DELETE FROM person WHERE person.id =" + person.getId());
+            PreparedStatement st = con.prepareStatement("DELETE FROM person WHERE person.id = ?");
+            st.setInt(1, person.getId());
+            st.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
         }
