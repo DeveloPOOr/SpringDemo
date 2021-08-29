@@ -1,6 +1,7 @@
 package org.example.springdemo.config;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -14,7 +15,7 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringConfig.class};
+        return new Class[]{SpringConfig.class, WebSecurityConfig.class};
     }
 
     @Override
@@ -25,6 +26,7 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
 
     @Override
     public void onStartup(ServletContext aServletContext) throws ServletException {
+//        DispatcherServlet dispatcherServlet = new DispatcherServlet()
         super.onStartup(aServletContext);
         registerHiddenFieldFilter(aServletContext);
     }

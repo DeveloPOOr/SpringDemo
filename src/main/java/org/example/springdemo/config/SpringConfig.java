@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,6 +16,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 @ComponentScan("org.example.springdemo")
@@ -54,6 +56,8 @@ public class SpringConfig implements WebMvcConfigurer {
 
     @Bean
     public DataSource postgresDataSource() {
+        Environment env = applicationContext.getEnvironment();
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/first_db");
@@ -61,6 +65,8 @@ public class SpringConfig implements WebMvcConfigurer {
         dataSource.setPassword("123456");
         return dataSource;
     }
+
+
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
