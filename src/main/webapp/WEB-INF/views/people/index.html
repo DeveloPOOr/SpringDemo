@@ -7,7 +7,7 @@
 <body>
 <!--/*@thymesVar id="people" type=""*/-->
 <div th:each = "person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">kj</a>
+    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getUsername()}">kj</a>
 </div>
 <br/>
 <a th:href="@{/people/new}">Add new user</a>

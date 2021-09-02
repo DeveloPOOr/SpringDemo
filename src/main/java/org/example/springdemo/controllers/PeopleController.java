@@ -8,8 +8,11 @@ import org.example.springdemo.dao.PersonDao;
 import org.example.springdemo.model.Person;
 
 
+import org.example.springdemo.model.Role;
+import org.example.springdemo.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +28,8 @@ public class PeopleController {
 
     Logger logger = Logger.getLogger(String.valueOf(PeopleController.class));
 
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public PeopleController(PersonDao personDao) {
@@ -53,11 +57,15 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String saveUser(@ModelAttribute("person") @Valid Person person,
+    public String addPerson(@ModelAttribute("person") @Valid Person person,
                            BindingResult bindingResult) {
 
         if(bindingResult.hasErrors())
             return "people/addPerson";
+
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole(Role.USER);
+        person.setStatus(Status.ACTIVE);
 
         personDao.save(person);
         logger.info("New user was saved");
@@ -86,6 +94,7 @@ public class PeopleController {
         personDao.delete(person);
         return "redirect:/people";
     }
+
 
 
 }

@@ -1,6 +1,5 @@
 package org.example.springdemo.model;
 
-public enum Roles {
-    ADMIN,
-    USER
+public enum Status {
+    ACTIVE, BANNED
 }

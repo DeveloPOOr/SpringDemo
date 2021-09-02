@@ -13,7 +13,7 @@ public class Person {
 
     @NotEmpty(message = "name shouldn't be empty")
     @Size(min = 1, max = 15, message = "name should be between 1 and 15 symbols")
-    private String name;
+    private String username;
 
     private int id;
 
@@ -24,22 +24,32 @@ public class Person {
     @NotEmpty(message = "email shouldn't be empty")
     private String email;
 
+    private Role role;
+
+    private Status status;
+
+    @NotEmpty(message = "password shouldn't be empty")
+    @Size(min = 6, max = 50, message = "password should be between 6 and 50 symbols")
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Person() {};
 
     public Person(int id,  String name, int age, String email) {
-        this.name = name;
+        this.username = name;
         this.id = id;
         this.age = age;
         this.email = email;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getId() {
         return id;
@@ -47,6 +57,30 @@ public class Person {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public int getAge() {
